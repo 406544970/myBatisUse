@@ -1,6 +1,7 @@
 package com.lh.mybatisuse.service.Impl;
 
 import com.lh.mybatisuse.dao.MyBatisUseMapper;
+import com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseSelectInParam;
 import com.lh.mybatisuse.model.MyBatisUseModel;
 import com.lh.mybatisuse.service.MyBatisUseService;
@@ -28,4 +29,27 @@ public class MyBatisUseServiceImpl implements MyBatisUseService {
     public MyBatisUseModel useLog(MyBatisUseSelectInParam myBatisUseSelectInParam) {
         return myBatisUseMapper.useLog(myBatisUseSelectInParam);
     }
+
+    /**
+     * 增加或修改Token
+     *
+     * @param myBatisUseInsertInParam com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam
+     * @return 对象
+     */
+    @Override
+    public int insertIntoAccessToken (MyBatisUseInsertInParam myBatisUseInsertInParam) {
+        return myBatisUseMapper.insertIntoAccessToken(myBatisUseInsertInParam);
+    }
+
+    /**
+     * 修改Token
+     *
+     * @param myBatisUseInsertInParam com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam
+     * @return 影响条数
+     */
+    @Override
+    public int updateAccessToken (MyBatisUseInsertInParam myBatisUseInsertInParam) {
+        return myBatisUseMapper.updateAccessToken(myBatisUseInsertInParam);
+    }
+
 }

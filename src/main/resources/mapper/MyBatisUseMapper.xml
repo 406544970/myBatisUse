@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lh.mybatisuse.dao.MyBatisUseMapper">
+    <!-- 注释：修改Token -->
+    <update id="updateAccessToken" parameterType="com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam">
+        UPDATE inf_accessToken
+        <set>
+            <if test="useId != null">
+                useId = #{useId,jdbcType=VARCHAR},
+            </if>
+            <if test="useType != null">
+                useType = #{useType,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null">
+                clientType = #{clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="accessToken != null">
+                accessToken = #{accessToken,jdbcType=VARCHAR},
+            </if>
+            <if test="tokenEffective != null">
+                tokenEffective = #{tokenEffective,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where>
+            <if test="useId != null">
+                AND useId = #{useId,jdbcType=VARCHAR}
+            </if>
+            <if test="useType != null">
+                AND useType = #{useType,jdbcType=VARCHAR}
+            </if>
+            <if test="clientType != null">
+                AND clientType = #{clientType,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!-- 注释：增加或修改Token -->
+    <insert id="insertIntoAccessToken" parameterType="com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam">
+        INSERT INTO inf_accessToken (
+        useId
+        ,useType
+        ,clientType
+        ,accessToken
+        <if test="tokenEffective != null">
+            ,tokenEffective
+        </if>
+        )
+        VALUES (
+        #{useId,jdbcType=VARCHAR}
+        ,#{useType,jdbcType=VARCHAR}
+        ,#{clientType,jdbcType=VARCHAR}
+        ,#{accessToken,jdbcType=VARCHAR}
+        <if test="tokenEffective != null">
+            ,#{tokenEffective,jdbcType=TIMESTAMP}
+        </if>
+        )
+    </insert>
+
     <!-- 注释：用户登录 -->
     <select id="useLog" resultType="com.lh.mybatisuse.model.MyBatisUseModel" parameterType="com.lh.mybatisuse.model.InPutParam.MyBatisUseSelectInParam">
         SELECT
@@ -11,7 +66,7 @@
         ,email
         ,endDate
         ,companyName
-        ,roleId
+        ,roleId as useType
         ,stopSign
         FROM  sys_useInfo
         <where>

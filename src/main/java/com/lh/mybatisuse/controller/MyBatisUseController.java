@@ -1,5 +1,6 @@
 package com.lh.mybatisuse.controller;
 
+import com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseSelectInParam;
 import com.lh.mybatisuse.model.MyBatisUseModel;
 import com.lh.mybatisuse.service.Impl.MyBatisUseServiceImpl;
@@ -20,7 +21,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.UUID;
 
 /**
@@ -78,43 +82,67 @@ public class MyBatisUseController {
         if (myBatisUseModel.getEndDate().before(new Date())) {
             return ResultStruct.error("用户账号已超期！", ResultVO.class);
         }
-        myBatisUseModel.setToken("asdrewrewqrewqrwq");
-        if (bsSign) {
-            final String TokenName = "accessToken";
-            final String UseId = "useId";
-            final String UseType = "useType";
-            final String ClientType = "clientType";
-            final int seconds = 3600 * 2;
-            HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
-            HttpServletResponse response = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getResponse();
-            String myOrigin = request.getHeader("origin");
-            myOrigin = getDoMain(myOrigin);
-            Cookie tokenName = new Cookie(TokenName, UUID.randomUUID().toString());
-            tokenName.setPath("/");
-            tokenName.setDomain(myOrigin);
-            tokenName.setMaxAge(seconds);
-            response.addCookie(tokenName);
 
-            Cookie useId = new Cookie(UseId, myBatisUseModel.getId());
-            useId.setPath("/");
-            useId.setDomain(myOrigin);
-            useId.setMaxAge(seconds);
-            response.addCookie(useId);
-
-            Cookie useType = new Cookie(UseType, myBatisUseModel.getRoleId());
-            useType.setPath("/");
-            useType.setDomain(myOrigin);
-            useType.setMaxAge(seconds);
-            response.addCookie(useType);
-
-            Cookie clientType = new Cookie(ClientType, "BS");
-            clientType.setPath("/");
-            clientType.setDomain(myOrigin);
-            clientType.setMaxAge(seconds);
-            response.addCookie(clientType);
+        MyBatisUseInsertInParam myBatisUseInsertInParam = new MyBatisUseInsertInParam();
+        myBatisUseInsertInParam.setUseId(myBatisUseModel.getId());
+        myBatisUseInsertInParam.setUseType(myBatisUseModel.getUseType());
+        myBatisUseInsertInParam.setClientType(bsSign ? "BS" : "CS");
+        String accessToken = UUID.randomUUID().toString();
+        myBatisUseInsertInParam.setAccessToken(accessToken);
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));    //获取东八区时间
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        c.add(Calendar.HOUR, 48);
+        Date saveDate = c.getTime();
+        String date = dateFormat.format(c.getTime());
+        myBatisUseInsertInParam.setTokenEffective(saveDate);
+        int repetitionCount = myBatisUseServiceImpl.updateAccessToken(myBatisUseInsertInParam);
+        boolean saveSign = repetitionCount > 0 ? true : false;
+        if (!saveSign) {
+            repetitionCount = myBatisUseServiceImpl.insertIntoAccessToken(myBatisUseInsertInParam);
+            saveSign = repetitionCount > 0 ? true : false;
         }
-        return ResultStruct.success(myBatisUseModel);
-}
+        if (saveSign) {
+            myBatisUseModel.setToken(accessToken);
+            myBatisUseModel.setTokenEffective(date);
+            if (bsSign) {
+                final String TokenName = "accessToken";
+                final String UseId = "useId";
+                final String UseType = "useType";
+                final String ClientType = "clientType";
+                final int seconds = 3600 * 2;
+                HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+                HttpServletResponse response = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getResponse();
+                String myOrigin = request.getHeader("origin");
+                myOrigin = getDoMain(myOrigin);
+                Cookie tokenName = new Cookie(TokenName, accessToken);
+                tokenName.setPath("/");
+                tokenName.setDomain(myOrigin);
+                tokenName.setMaxAge(seconds);
+                response.addCookie(tokenName);
+
+                Cookie useId = new Cookie(UseId, myBatisUseModel.getId());
+                useId.setPath("/");
+                useId.setDomain(myOrigin);
+                useId.setMaxAge(seconds);
+                response.addCookie(useId);
+
+                Cookie useType = new Cookie(UseType, myBatisUseModel.getUseType());
+                useType.setPath("/");
+                useType.setDomain(myOrigin);
+                useType.setMaxAge(seconds);
+                response.addCookie(useType);
+
+                Cookie clientType = new Cookie(ClientType, "BS");
+                clientType.setPath("/");
+                clientType.setDomain(myOrigin);
+                clientType.setMaxAge(seconds);
+                response.addCookie(clientType);
+            }
+            return ResultStruct.success(myBatisUseModel);
+        }
+        else
+            return ResultStruct.error("登录失败!",ResultVO.class);
+    }
 
     private String getDoMain(String myOrigin) {
         String newOrigin = myOrigin.replace("https://", "")

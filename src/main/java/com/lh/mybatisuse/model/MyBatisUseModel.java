@@ -11,6 +11,7 @@ import java.util.Date;
  * @editLog
  */
 public class MyBatisUseModel {
+    private String tokenEffective;
     private String token;
     /**
      * 主键
@@ -47,8 +48,7 @@ public class MyBatisUseModel {
     /**
      * 用户类型
      */
-    @JsonIgnore
-    private String roleId;
+    private String useType;
     /**
      * 是否停用
      */
@@ -111,14 +111,6 @@ public class MyBatisUseModel {
         this.companyName = companyName;
     }
 
-    public String getRoleId(){
-        return roleId;
-    }
-
-    public void setRoleId(String roleId){
-        this.roleId = roleId;
-    }
-
     public Boolean getStopSign(){
         return stopSign;
     }
@@ -133,5 +125,21 @@ public class MyBatisUseModel {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getUseType() {
+        return useType;
+    }
+
+    public void setUseType(String useType) {
+        this.useType = useType;
+    }
+
+    public String getTokenEffective() {
+        return tokenEffective;
+    }
+
+    public void setTokenEffective(String tokenEffective) {
+        this.tokenEffective = tokenEffective;
     }
 }
