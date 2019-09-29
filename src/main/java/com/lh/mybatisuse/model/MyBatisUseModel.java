@@ -11,6 +11,7 @@ import java.util.Date;
  * @editLog
  */
 public class MyBatisUseModel {
+    private String token;
     /**
      * 主键
      */
@@ -124,5 +125,13 @@ public class MyBatisUseModel {
 
     public void setStopSign(Boolean stopSign){
         this.stopSign = stopSign;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

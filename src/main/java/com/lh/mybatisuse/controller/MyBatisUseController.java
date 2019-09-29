@@ -39,41 +39,31 @@ public class MyBatisUseController {
     /**
      * 用户登录CS，方法ID：SE20190929112838909B3-04-31-E6-9C-3B
      *
-     * @param useName 表sys_useInfo,字段名useName:账号
-     * @param mobile  表sys_useInfo,字段名mobile:手机号
-     * @param email   表sys_useInfo,字段名email:邮件
-     * @param passWord   表sys_useInfo,字段名passWord:密码
+     * @param num      表sys_useInfo,字段名useName:账号
+     * @param passWord 表sys_useInfo,字段名passWord:密码
      * @return 用户信息
      */
     @ApiOperation(value = "用户登录", notes = "用户信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "useName", value = "账号", dataType = "String"),
-            @ApiImplicitParam(name = "mobile", value = "手机号", dataType = "String"),
-            @ApiImplicitParam(name = "email", value = "邮件", dataType = "String"),
+            @ApiImplicitParam(name = "num", value = "账号", dataType = "String"),
             @ApiImplicitParam(name = "passWord", value = "密码", dataType = "String", required = true)
     })
     @PostMapping("/useLogCS")
-    public ResultVO useLogCS(@RequestParam(value = "useName", required = false) String useName
-            , @RequestParam(value = "mobile", required = false) String mobile
-            , @RequestParam(value = "email", required = false) String email
+    public ResultVO useLogCS(@RequestParam(value = "num") String num
             , @RequestParam(value = "passWord") String passWord) {
-        return privateUseLog(useName, mobile, email,passWord,false);
+        return privateUseLog(num, passWord, false);
     }
 
-    private ResultVO privateUseLog(String useName
-            , String mobile
-            , String email
+    private ResultVO privateUseLog(String num
             , String passWord
             , boolean bsSign) {
-        useName = useName == null ? useName : useName.trim();
-        mobile = mobile == null ? mobile : mobile.trim();
-        email = email == null ? email : email.trim();
+        num = num == null ? num : num.trim();
         passWord = passWord == null ? passWord : passWord.trim();
 
         MyBatisUseSelectInParam myBatisUseSelectInParam = new MyBatisUseSelectInParam();
-        myBatisUseSelectInParam.setUseName(useName);
-        myBatisUseSelectInParam.setMobile(mobile);
-        myBatisUseSelectInParam.setEmail(email);
+        myBatisUseSelectInParam.setUseName(num);
+        myBatisUseSelectInParam.setMobile(num);
+        myBatisUseSelectInParam.setEmail(num);
 
         MyBatisUseModel myBatisUseModel = myBatisUseServiceImpl.useLog(myBatisUseSelectInParam);
         if (myBatisUseModel == null) {
@@ -88,6 +78,7 @@ public class MyBatisUseController {
         if (myBatisUseModel.getEndDate().before(new Date())) {
             return ResultStruct.error("用户账号已超期！", ResultVO.class);
         }
+        myBatisUseModel.setToken("asdrewrewqrewqrwq");
         if (bsSign) {
             final String TokenName = "accessToken";
             final String UseId = "useId";
@@ -123,7 +114,8 @@ public class MyBatisUseController {
             response.addCookie(clientType);
         }
         return ResultStruct.success(myBatisUseModel);
-    }
+}
+
     private String getDoMain(String myOrigin) {
         String newOrigin = myOrigin.replace("https://", "")
                 .replace("http://", "");
