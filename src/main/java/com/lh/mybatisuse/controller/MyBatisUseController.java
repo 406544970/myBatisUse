@@ -89,11 +89,14 @@ public class MyBatisUseController {
         myBatisUseInsertInParam.setClientType(bsSign ? "BS" : "CS");
         String accessToken = UUID.randomUUID().toString();
         myBatisUseInsertInParam.setAccessToken(accessToken);
-        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));    //获取东八区时间
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Shanghai");//获取北京时间
+        Calendar c = Calendar.getInstance(timeZone);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setTimeZone(timeZone);
         c.add(Calendar.HOUR, 48);
         Date saveDate = c.getTime();
         String date = dateFormat.format(c.getTime());
+
         myBatisUseInsertInParam.setTokenEffective(saveDate);
         int repetitionCount = myBatisUseServiceImpl.updateAccessToken(myBatisUseInsertInParam);
         boolean saveSign = repetitionCount > 0 ? true : false;

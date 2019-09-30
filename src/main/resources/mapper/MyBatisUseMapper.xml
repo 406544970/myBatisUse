@@ -8,6 +8,7 @@
             <if test="useId != null">
                 useId = #{useId,jdbcType=VARCHAR},
             </if>
+
             <if test="useType != null">
                 useType = #{useType,jdbcType=VARCHAR},
             </if>
