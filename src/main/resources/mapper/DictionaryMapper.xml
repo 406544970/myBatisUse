@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lh.mybatisuse.dao.DictionaryMapper">
+    <!-- 注释：返回字典列表 -->
+    <select id="selectDictionaryList" resultType="com.lh.mybatisuse.model.DictionaryModel" parameterType="java.lang.String">
+        SELECT
+        id AS value
+        ,contentName AS label
+        ,defaultSelect
+        FROM  inf_dictionary
+        <where>
+            AND signName = #{signName,jdbcType=VARCHAR}
+            AND stopSign = '0'
+        </where>
+        ORDER BY sortNo
+    </select>
+    <!-- 注释：增加字典 -->
+    <insert id="insertDictionary" parameterType="com.lh.mybatisuse.model.InPutParam.DictionaryInsertInParam">
+        INSERT INTO inf_dictionary (
+        id
+        ,signName
+        ,contentName
+        ,sortNo
+        <if test="remark != null">
+            ,remark
+        </if>
+        )
+        VALUES (
+        #{id,jdbcType=VARCHAR}
+        ,#{signName,jdbcType=VARCHAR}
+        ,#{contentName,jdbcType=VARCHAR}
+        ,#{sortNo,jdbcType=INTEGER}
+        <if test="remark != null">
+            ,#{remark,jdbcType=VARCHAR}
+        </if>
+        )
+    </insert>
+
+    <!-- 注释：重复检查功能,增加字典 -->
+    <select id="insertDictionaryBeforeCheck" resultType="java.lang.Integer" parameterType="com.lh.mybatisuse.model.InPutParam.DictionaryInsertInParam">
+        SELECT COUNT(*) AS COUNTER
+        FROM inf_dictionary
+        <where>
+            AND id = #{id,jdbcType=VARCHAR}
+            AND signName = #{signName,jdbcType=VARCHAR}
+        </where>
+    </select>
+    <!-- 注释：修改字典 -->
+    <update id="updateDictionaryByAll" parameterType="com.lh.mybatisuse.model.InPutParam.DictionaryUpdateInParam">
+        UPDATE inf_dictionary
+        <set>
+            <if test="id != null">
+                id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="signName != null">
+                signName = #{signName,jdbcType=VARCHAR},
+            </if>
+            <if test="contentName != null">
+                contentName = #{contentName,jdbcType=VARCHAR},
+            </if>
+            <if test="defaultSelect != null">
+                defaultSelect = #{defaultSelect,jdbcType=BIT},
+            </if>
+            <if test="sortNo != null">
+                sortNo = #{sortNo,jdbcType=INTEGER},
+            </if>
+            <if test="stopSign != null">
+                stopSign = #{stopSign,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where>
+            <if test="idWhere != null">
+                AND id = #{idWhere,jdbcType=VARCHAR}
+            </if>
+            <if test="signNameWhere != null">
+                AND signName = #{signNameWhere,jdbcType=VARCHAR}
+            </if>
+            <if test="contentNameWhere != null">
+                AND contentName = #{contentNameWhere,jdbcType=VARCHAR}
+            </if>
+            <if test="defaultSelectWhere != null">
+                AND defaultSelect = #{defaultSelectWhere,jdbcType=BIT}
+            </if>
+            <if test="sortNoWhere != null">
+                AND sortNo = #{sortNoWhere,jdbcType=INTEGER}
+            </if>
+            <if test="stopSignWhere != null">
+                AND stopSign = #{stopSignWhere,jdbcType=BIT}
+            </if>
+            <if test="remarkWhere != null">
+                AND remark = #{remarkWhere,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+    <!-- 注释：删除 -->
+    <delete id="deleteDictionaryBySignAndId" parameterType="com.lh.mybatisuse.model.InPutParam.DictionaryDeleteInParam">
+        DELETE FROM inf_dictionary
+        <where>
+            <if test="id != null">
+                AND id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="signName != null">
+                AND signName = #{signName,jdbcType=VARCHAR}
+            </if>
+            <if test="contentName != null">
+                AND contentName = #{contentName,jdbcType=VARCHAR}
+            </if>
+            <if test="defaultSelect != null">
+                AND defaultSelect = #{defaultSelect,jdbcType=BIT}
+            </if>
+            <if test="sortNo != null">
+                AND sortNo = #{sortNo,jdbcType=INTEGER}
+            </if>
+            <if test="stopSign != null">
+                AND stopSign = #{stopSign,jdbcType=BIT}
+            </if>
+            <if test="remark != null">
+                AND remark = #{remark,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+    <!-- 注释：根据标识得到内容 -->
+    <select id="selectSignById" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT
+        dictionaryPageName
+        FROM  inf_dictionaryName
+        <where>
+            AND id = #{id,jdbcType=VARCHAR}
+        </where>
+    </select>
+
+</mapper>
