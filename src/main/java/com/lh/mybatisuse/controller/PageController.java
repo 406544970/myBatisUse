@@ -41,7 +41,7 @@ public class PageController {
     @ApiOperation(value = "得到需要更新的版本信息", notes = "页面ID")
     @PostMapping("/selectVersionList")
     public ResultVO selectVersionList(@RequestBody @ApiParam(name = "pageVersionAllInParam", value = "传入PageVersionAllInParam格式", required = true)
-                                              PageVersionAllInParam pageVersionAllInParam) {
+        PageVersionAllInParam pageVersionAllInParam) {
         if (pageVersionAllInParam == null) {
             return ResultStruct.error("参数传递有误！", ResultVO.class);
         }
