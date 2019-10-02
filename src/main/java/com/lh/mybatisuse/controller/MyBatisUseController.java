@@ -22,10 +22,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author ：梁昊，后端工程师：梁昊，前端工程师：梁昊
@@ -39,6 +36,59 @@ import java.util.UUID;
 public class MyBatisUseController {
     @Autowired
     MyBatisUseServiceImpl myBatisUseServiceImpl;
+
+    /**
+     * 得到创造者用户NickNameList，方法ID：SE20190928154227197
+     *
+     * @return 用户信息对象
+     */
+    @ApiOperation(value = "得到用户ID", notes = "用户信息对象")
+    @PostMapping("/selectUseCreateNickNameList")
+    public List<String> selectUseCreateNickNameList() {
+        return selectUseNickNameList("R003");
+    }
+    /**
+     * 得到后端者用户NickNameList，方法ID：SE20190928154227197
+     *
+     * @return 用户信息对象
+     */
+    @ApiOperation(value = "得到用户ID", notes = "用户信息对象")
+    @PostMapping("/selectUseDoNickNameList")
+    public List<String> selectUseDoNickNameList() {
+        return selectUseNickNameList("R004");
+    }
+    /**
+     * 得到前端用户NickNameList，方法ID：SE20190928154227197
+     *
+     * @return 用户信息对象
+     */
+    @ApiOperation(value = "得到用户ID", notes = "用户信息对象")
+    @PostMapping("/selectUseFrontNickNameList")
+    public List<String> selectUseFrontNickNameList() {
+        return selectUseNickNameList("R005");
+    }
+
+    private List<String> selectUseNickNameList(String roleId) {
+        return myBatisUseServiceImpl.selectUseNickNameList(roleId);
+    }
+
+
+    /**
+     * 得到用户ID，方法ID：SE20190928154227197
+     *
+     * @param nickName 表sys_useInfo,字段名nickName:昵称
+     * @return 用户信息对象
+     */
+    @ApiOperation(value = "得到用户ID", notes = "用户信息对象")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "nickName", value = "昵称", dataType = "String", required = true)
+    })
+    @PostMapping("/selectUseId")
+    public String selectUseId(@RequestParam(value = "nickName") String nickName) {
+        nickName = nickName == null ? nickName : nickName.trim();
+        return myBatisUseServiceImpl.selectUseId(nickName);
+    }
+
 
     /**
      * 用户登录CS，方法ID：SE20190929112838909B3-04-31-E6-9C-3B

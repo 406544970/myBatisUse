@@ -8,6 +8,8 @@ import com.lh.mybatisuse.service.MyBatisUseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author ：梁昊，后端工程师：梁昊，前端工程师：梁昊
  * @create 2019-09-29 11:43
@@ -19,6 +21,28 @@ import org.springframework.stereotype.Service;
 public class MyBatisUseServiceImpl implements MyBatisUseService {
     @Autowired
     MyBatisUseMapper myBatisUseMapper;
+    /**
+     * 得到用户ID
+     *
+     * @param roldId 得到用户ID
+     * @return 用户信息对象
+     */
+    @Override
+    public List<String> selectUseNickNameList(String roleId) {
+        return myBatisUseMapper.selectUseNickNameList(roleId);
+    }
+
+    /**
+     * 得到用户ID
+     *
+     * @param nickName 昵称
+     * @return 用户信息对象
+     */
+    @Override
+    public String selectUseId(String nickName) {
+        return myBatisUseMapper.selectUseId(nickName);
+    }
+
     /**
      * 用户登录
      *

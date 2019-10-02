@@ -4,6 +4,9 @@ import com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseSelectInParam;
 import com.lh.mybatisuse.model.MyBatisUseModel;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author ：梁昊，后端工程师：梁昊，前端工程师：梁昊
@@ -13,6 +16,22 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface MyBatisUseMapper {
+    /**
+     * 得到用户ID
+     *
+     * @param roleId 输入参数
+     * @return 用户信息对象
+     */
+    List<String> selectUseNickNameList(@Param("roleId") String roleId);
+
+    /**
+     * 得到用户ID
+     *
+     * @param nickName 昵称
+     * @return 用户信息对象
+     */
+    String selectUseId(@Param("nickName") String nickName);
+
     /**
      * 用户登录
      *
