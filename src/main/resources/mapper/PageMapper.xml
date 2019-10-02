@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lh.mybatisuse.dao.PageMapper">
+    <sql id="pageSelect">
+        SELECT
+        pageKey
+        ,projectId
+        ,pageType
+        ,pageVersion
+        ,createTime
+        ,lastUpdateTime
+        ,createOperator
+        ,createOperatorId
+        ,doOperator
+        ,doOperatorId
+        ,frontOperator
+        ,frontOperatorId
+        ,finishCount
+        ,readOnly
+        ,methodRemark
+    </sql>
+    <!-- 注释：得到需要更新的版本信息 -->
+    <select id="selectVersionList" resultType="com.lh.mybatisuse.model.PageModel" parameterType="java.lang.String">
+        <include refid="pageSelect"/>
+        , 0 as operateType
+        FROM  vou_pageInfomation
+        <where>
+            <if test="pageKey != null">
+              AND pageKey IN
+              <foreach item = "item" index = "index" collection = "pageKey" open = "(" separator = ", " close = ")" >
+                #{item}
+              </foreach>
+            </if>
+        </where>
+        ORDER BY pageType,lastUpdateTime
+    </select>
+
+    <select id="selectVersionInsertList" resultType="com.lh.mybatisuse.model.PageModel" parameterType="com.lh.mybatisuse.model.InPutParam.PageVersionInsertInParam">
+        <include refid="pageSelect"/>
+        , 1 as operateType
+        FROM  vou_pageInfomation
+        <where>
+            <if test="pageKey != null">
+              AND pageKey NOT IN
+              <foreach item = "item" index = "index" collection = "pageKey" open = "(" separator = ", " close = ")" >
+                #{item}
+              </foreach>
+            </if>
+            <if test="useId != null">
+                AND (createOperatorId = #{useId,jdbcType=VARCHAR}
+                OR doOperatorId = #{useId,jdbcType=VARCHAR}
+                OR frontOperatorId = #{useId,jdbcType=VARCHAR})
+            </if>
+        </where>
+        ORDER BY pageType,lastUpdateTime
+    </select>
+</mapper>
