@@ -41,7 +41,7 @@ public class PageController {
     @ApiOperation(value = "得到需要更新的版本信息", notes = "页面ID")
     @PostMapping("/selectVersionList")
     public ResultVO selectVersionList(@RequestBody @ApiParam(name = "pageVersionAllInParam", value = "传入PageVersionAllInParam格式", required = true)
-        PageVersionAllInParam pageVersionAllInParam) {
+                                              PageVersionAllInParam pageVersionAllInParam) {
         if (pageVersionAllInParam == null) {
             return ResultStruct.error("参数传递有误！", ResultVO.class);
         }
@@ -79,8 +79,7 @@ public class PageController {
                     if (!pageVersionInParam.getPageVersion().equals(pageModelsUpdate.get(index).getPageVersion())) {
                         resultList.add(pageModelsUpdate.get(index));
                     }
-                }
-                else {
+                } else {
                     PageModel pageModel = new PageModel();
                     pageModel.setOperateType((short) -1);
                     pageModel.setPageKey(pageVersionInParam.getPageKey());
@@ -98,6 +97,12 @@ public class PageController {
             resultList.addAll(pageModelsInsert);
         }
 
+        if (pageKeys != null)
+            pageKeys.clear();
+        if (pageModelsInsert != null)
+            pageModelsInsert.clear();
+        if (pageModelsUpdate != null)
+            pageModelsUpdate.clear();
         return ResultStruct.success(resultList);
     }
 }
