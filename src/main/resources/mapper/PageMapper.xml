@@ -1,6 +1,207 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lh.mybatisuse.dao.PageMapper">
+    <!-- 注释：删除远程页面 -->
+    <delete id="deletePageAndXml" parameterType="com.lh.mybatisuse.model.InPutParam.PageInsertInParam">
+        DELETE FROM vou_pageInfomation
+        <where>
+            <if test="pageKey != null">
+                AND pageKey = #{pageKey,jdbcType=VARCHAR}
+            </if>
+            <if test="projectId != null">
+                AND projectId = #{projectId,jdbcType=VARCHAR}
+            </if>
+            <if test="pageType != null">
+                AND pageType = #{pageType,jdbcType=VARCHAR}
+            </if>
+            <if test="pageVersion != null">
+                AND pageVersion = #{pageVersion,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                AND createTime = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lastUpdateTime != null">
+                AND lastUpdateTime = #{lastUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createOperator != null">
+                AND createOperator = #{createOperator,jdbcType=VARCHAR}
+            </if>
+            <if test="createOperatorId != null">
+                AND createOperatorId = #{createOperatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="doOperator != null">
+                AND doOperator = #{doOperator,jdbcType=VARCHAR}
+            </if>
+            <if test="doOperatorId != null">
+                AND doOperatorId = #{doOperatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="frontOperator != null">
+                AND frontOperator = #{frontOperator,jdbcType=VARCHAR}
+            </if>
+            <if test="frontOperatorId != null">
+                AND frontOperatorId = #{frontOperatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="finishCount != null">
+                AND finishCount = #{finishCount,jdbcType=INTEGER}
+            </if>
+            <if test="readOnly != null">
+                AND readOnly = #{readOnly,jdbcType=BIT}
+            </if>
+            <if test="methodRemark != null">
+                AND methodRemark = #{methodRemark,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+    <!-- 注释：更新页面到远程 -->
+    <update id="updatePageAndXml" parameterType="com.lh.mybatisuse.model.InPutParam.PageInsertInParam">
+        UPDATE vou_pageInfomation
+        <set>
+            <if test="projectId != null">
+                projectId = #{projectId,jdbcType=VARCHAR},
+            </if>
+            <if test="pageType != null">
+                pageType = #{pageType,jdbcType=VARCHAR},
+            </if>
+            <if test="pageVersion != null">
+                pageVersion = #{pageVersion,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateTime != null">
+                lastUpdateTime = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createOperator != null">
+                createOperator = #{createOperator,jdbcType=VARCHAR},
+            </if>
+            <if test="createOperatorId != null">
+                createOperatorId = #{createOperatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="doOperator != null">
+                doOperator = #{doOperator,jdbcType=VARCHAR},
+            </if>
+            <if test="doOperatorId != null">
+                doOperatorId = #{doOperatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="frontOperator != null">
+                frontOperator = #{frontOperator,jdbcType=VARCHAR},
+            </if>
+            <if test="frontOperatorId != null">
+                frontOperatorId = #{frontOperatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="finishCount != null">
+                finishCount = #{finishCount,jdbcType=INTEGER},
+            </if>
+            <if test="readOnly != null">
+                readOnly = #{readOnly,jdbcType=BIT},
+            </if>
+            <if test="methodRemark != null">
+                methodRemark = #{methodRemark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where>
+            <if test="pageKey != null">
+                AND pageKey = #{pageKey,jdbcType=VARCHAR}
+            </if>
+            <if test="projectId != null">
+                AND projectId = #{projectId,jdbcType=VARCHAR}
+            </if>
+            <if test="pageType != null">
+                AND pageType = #{pageType,jdbcType=VARCHAR}
+            </if>
+            <if test="pageVersion != null">
+                AND pageVersion = #{pageVersion,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                AND createTime = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lastUpdateTime != null">
+                AND lastUpdateTime = #{lastUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createOperator != null">
+                AND createOperator = #{createOperator,jdbcType=VARCHAR}
+            </if>
+            <if test="createOperatorId != null">
+                AND createOperatorId = #{createOperatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="doOperator != null">
+                AND doOperator = #{doOperator,jdbcType=VARCHAR}
+            </if>
+            <if test="doOperatorId != null">
+                AND doOperatorId = #{doOperatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="frontOperator != null">
+                AND frontOperator = #{frontOperator,jdbcType=VARCHAR}
+            </if>
+            <if test="frontOperatorId != null">
+                AND frontOperatorId = #{frontOperatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="finishCount != null">
+                AND finishCount = #{finishCount,jdbcType=INTEGER}
+            </if>
+            <if test="readOnly != null">
+                AND readOnly = #{readOnly,jdbcType=BIT}
+            </if>
+            <if test="methodRemark != null">
+                AND methodRemark = #{methodRemark,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+
+    <!-- 注释：增加页面到远程 -->
+    <insert id="insertPage" parameterType="com.lh.mybatisuse.model.InPutParam.PageInsertInParam">
+        INSERT INTO vou_pageInfomation (
+        pageKey
+        ,projectId
+        ,pageType
+        ,pageVersion
+        ,createTime
+        ,lastUpdateTime
+        ,createOperator
+        ,createOperatorId
+        ,doOperator
+        ,doOperatorId
+        ,frontOperator
+        ,frontOperatorId
+        ,finishCount
+        ,readOnly
+        <if test="methodRemark != null">
+            ,methodRemark
+        </if>
+        )
+        VALUES (
+        #{pageKey,jdbcType=VARCHAR}
+        ,#{projectId,jdbcType=VARCHAR}
+        ,#{pageType,jdbcType=VARCHAR}
+        ,#{pageVersion,jdbcType=INTEGER}
+        ,#{createTime,jdbcType=TIMESTAMP}
+        ,#{lastUpdateTime,jdbcType=TIMESTAMP}
+        ,#{createOperator,jdbcType=VARCHAR}
+        ,#{createOperatorId,jdbcType=VARCHAR}
+        ,#{doOperator,jdbcType=VARCHAR}
+        ,#{doOperatorId,jdbcType=VARCHAR}
+        ,#{frontOperator,jdbcType=VARCHAR}
+        ,#{frontOperatorId,jdbcType=VARCHAR}
+        ,#{finishCount,jdbcType=INTEGER}
+        ,#{readOnly,jdbcType=BIT}
+        <if test="methodRemark != null">
+            ,#{methodRemark,jdbcType=VARCHAR}
+        </if>
+        )
+    </insert>
+
+    <!-- 注释：重复检查功能,增加页面到远程 -->
+    <select id="insertPageBeforeCheck" resultType="java.lang.Integer" parameterType="com.lh.mybatisuse.model.InPutParam.PageInsertInParam">
+        SELECT COUNT(*) AS COUNTER
+        FROM vou_pageInfomation
+        <where>
+            <if test="pageKey != null">
+                AND pageKey = #{pageKey,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
     <sql id="pageSelect">
         SELECT
         pageKey

@@ -1,23 +1,14 @@
-package com.lh.mybatisuse.model;
+package com.lh.mybatisuse.model.InPutParam;
 
 import java.util.Date;
 
 /**
  * @author ：flyman，后端工程师：flyman2，前端工程师：flyman3
- * @create 2019-10-02 20:46
+ * @create 2019-10-03 13:37
  * @function
  * @editLog
  */
-public class PageModel {
-    public PageModel() {
-        this.operateType = 0;
-        this.pageVersion = 0;
-        this.finishCount =0;
-        this.readOnly = false;
-        this.createTime = new Date();
-        this.lastUpdateTime = new Date();
-    }
-
+public class PageInsertInParam {
     /**
      * 主键
      */
@@ -78,8 +69,6 @@ public class PageModel {
      * 方法说明
      */
     private String methodRemark;
-
-    private Short operateType;
 
     public String getPageKey(){
         return pageKey;
@@ -199,13 +188,5 @@ public class PageModel {
 
     public void setMethodRemark(String methodRemark){
         this.methodRemark = methodRemark;
-    }
-
-    public Short getOperateType() {
-        return operateType;
-    }
-
-    public void setOperateType(Short operateType) {
-        this.operateType = operateType;
     }
 }

@@ -1,5 +1,6 @@
 package com.lh.mybatisuse.service;
 
+import com.lh.mybatisuse.model.InPutParam.PageInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.PageVersionInsertInParam;
 import com.lh.mybatisuse.model.PageModel;
 
@@ -21,4 +22,35 @@ public interface PageService {
     List<PageModel> selectVersionList(List<String> pageKey);
 
     List<PageModel> selectVersionInsertList(PageVersionInsertInParam pageVersionInsertInParam);
+    /**
+     * 增加页面到远程
+     *
+     * @param pageInsertInParam com.lh.mybatisuse.model.InPutParam.PageInsertInParam
+     * @return 影响条数
+     */
+    int insertPage(PageInsertInParam pageInsertInParam);
+
+    /**
+     * 增加页面到远程
+     *
+     * @param pageInsertInParam com.lh.mybatisuse.model.InPutParam.PageInsertInParam
+     * @return 影响条数
+     */
+    int insertPageBeforeCheck(PageInsertInParam pageInsertInParam);
+    /**
+     * 更新页面到远程
+     *
+     * @param pageInsertInParam com.lh.mybatisuse.model.InPutParam.PageInsertInParam
+     * @return 影响条数
+     */
+    int updatePageAndXml(PageInsertInParam pageInsertInParam);
+
+    /**
+     * 删除远程页面
+     *
+     * @param pageInsertInParam com.lh.mybatisuse.model.InPutParam.PageInsertInParam
+     * @return 影响条数
+     */
+    int deletePageAndXml(PageInsertInParam pageInsertInParam);
+
 }

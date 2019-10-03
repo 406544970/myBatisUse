@@ -1,6 +1,7 @@
 package com.lh.mybatisuse.service.Impl;
 
 import com.lh.mybatisuse.dao.PageMapper;
+import com.lh.mybatisuse.model.InPutParam.PageInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.PageVersionInsertInParam;
 import com.lh.mybatisuse.model.PageModel;
 import com.lh.mybatisuse.service.PageService;
@@ -35,4 +36,49 @@ public class PageServiceImpl implements PageService {
     public List<PageModel> selectVersionInsertList(PageVersionInsertInParam pageVersionInsertInParam) {
         return pageMapper.selectVersionInsertList(pageVersionInsertInParam);
     }
+
+    /**
+     * 增加页面到远程
+     *
+     * @param pageInsertInParam com.lh.mybatisuse.model.InPutParam.PageInsertInParam
+     * @return 影响条数
+     */
+    @Override
+    public int insertPage (PageInsertInParam pageInsertInParam) {
+        return pageMapper.insertPage(pageInsertInParam);
+    }
+
+    /**
+     * 增加页面到远程
+     *
+     * @param pageInsertInParam com.lh.mybatisuse.model.InPutParam.PageInsertInParam
+     * @return 影响条数
+     */
+    @Override
+    public int insertPageBeforeCheck(PageInsertInParam pageInsertInParam) {
+        return pageMapper.insertPageBeforeCheck(pageInsertInParam);
+    }
+
+    /**
+     * 更新页面到远程
+     *
+     * @param pageInsertInParam com.lh.mybatisuse.model.InPutParam.PageInsertInParam
+     * @return 影响条数
+     */
+    @Override
+    public int updatePageAndXml (PageInsertInParam pageInsertInParam) {
+        return pageMapper.updatePageAndXml(pageInsertInParam);
+    }
+
+    /**
+     * 删除远程页面
+     *
+     * @param pageInsertInParam com.lh.mybatisuse.model.InPutParam.PageInsertInParam
+     * @return 影响条数
+     */
+    @Override
+    public int deletePageAndXml (PageInsertInParam pageInsertInParam) {
+        return pageMapper.deletePageAndXml(pageInsertInParam);
+    }
+
 }
