@@ -3,20 +3,20 @@ package com.lh.mybatisuse.controller;
 import com.lh.mybatisuse.model.InPutParam.PageVersionAllInParam;
 import com.lh.mybatisuse.model.InPutParam.PageVersionInParam;
 import com.lh.mybatisuse.model.InPutParam.PageVersionInsertInParam;
+import com.lh.mybatisuse.model.InPutParam.PageVersionListInParam;
 import com.lh.mybatisuse.model.PageModel;
 import com.lh.mybatisuse.service.PageService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lh.model.ResultVO;
 import lh.units.ResultStruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,26 +35,24 @@ public class PageController {
     /**
      * 得到需要更新的版本信息，方法ID：SE2019100218372321158B1B17A5A33
      *
-     * @param pageVersionAllInParam 表vou_pageInfomation,对象集合
      * @return 页面ID
      */
     @ApiOperation(value = "得到需要更新的版本信息", notes = "页面ID")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "useId", value = "useId", dataType = "String", required = true)
+    })
     @PostMapping("/selectVersionList")
-    public ResultVO selectVersionList(@RequestBody @ApiParam(name = "pageVersionAllInParam", value = "传入PageVersionAllInParam格式", required = true)
-        PageVersionAllInParam pageVersionAllInParam) {
-        if (pageVersionAllInParam == null) {
-            return ResultStruct.error("参数传递有误！", ResultVO.class);
-        }
+    public ResultVO selectVersionList(
+            @RequestBody @ApiParam(name = "pageVersionInParamList", value = "传入PageVersionAllInParam格式")
+                    PageVersionListInParam pageVersionInParamList
+            , @RequestParam(value = "useId") String useId) throws ParseException {
 
         List<PageModel> resultList = new ArrayList<>();
-        if (pageVersionAllInParam.getUseId() != null) {
-            pageVersionAllInParam.setUseId(pageVersionAllInParam.getUseId());
-        }
 
         List<String> pageKeys = null;
         List<PageVersionInParam> pageVersionInParams = null;
-        if (pageVersionAllInParam.getPageKey() != null) {
-            pageVersionInParams = pageVersionAllInParam.getPageKey();
+        if (pageVersionInParamList != null) {
+            pageVersionInParams = pageVersionInParamList.getPageKey();
             pageKeys = new ArrayList<>();
             for (PageVersionInParam pageVersionInParam :
                     pageVersionInParams) {
@@ -90,7 +88,7 @@ public class PageController {
 
         PageVersionInsertInParam pageVersionInsertInParam = new PageVersionInsertInParam();
         pageVersionInsertInParam.setPageKey(pageKeys);
-        pageVersionInsertInParam.setUseId(pageVersionAllInParam.getUseId());
+        pageVersionInsertInParam.setUseId(useId);
 
         List<PageModel> pageModelsInsert = pageService.selectVersionInsertList(pageVersionInsertInParam);
         if (pageModelsInsert != null) {
