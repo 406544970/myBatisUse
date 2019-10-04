@@ -16,6 +16,8 @@ public class PageVersionInParam {
      */
     private Integer pageVersion;
 
+    private String pageType;
+
     public String getPageKey() {
         return pageKey;
     }
@@ -30,5 +32,13 @@ public class PageVersionInParam {
 
     public void setPageVersion(Integer pageVersion) {
         this.pageVersion = pageVersion;
+    }
+
+    public String getPageType() {
+        return pageType;
+    }
+
+    public void setPageType(String pageType) {
+        this.pageType = pageType;
     }
 }

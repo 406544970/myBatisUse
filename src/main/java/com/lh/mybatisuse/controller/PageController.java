@@ -51,10 +51,12 @@ public class PageController {
         List<PageVersionInParam> pageVersionInParams = null;
         if (pageVersionInParamList != null) {
             pageVersionInParams = pageVersionInParamList.getPageKey();
-            pageKeys = new ArrayList<>();
-            for (PageVersionInParam pageVersionInParam :
-                    pageVersionInParams) {
-                pageKeys.add(pageVersionInParam.getPageKey());
+            if (!pageVersionInParams.isEmpty()) {
+                pageKeys = new ArrayList<>();
+                for (PageVersionInParam pageVersionInParam :
+                        pageVersionInParams) {
+                    pageKeys.add(pageVersionInParam.getPageKey());
+                }
             }
         }
 
@@ -79,6 +81,7 @@ public class PageController {
                     PageModel pageModel = new PageModel();
                     pageModel.setOperateType((short) -1);
                     pageModel.setPageKey(pageVersionInParam.getPageKey());
+                    pageModel.setPageType(pageVersionInParam.getPageType());
                     resultList.add(pageModel);
                 }
             }
@@ -208,6 +211,7 @@ public class PageController {
 
         return updateCount;
     }
+
     /**
      * 增加页面到远程，方法ID：IN2019100313365444981638880CDD8
      *
