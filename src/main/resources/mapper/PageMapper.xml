@@ -57,9 +57,6 @@
     <update id="updatePageAndXml" parameterType="com.lh.mybatisuse.model.InPutParam.PageInsertInParam">
         UPDATE vou_pageInfomation
         <set>
-            <if test="projectId != null">
-                projectId = #{projectId,jdbcType=VARCHAR},
-            </if>
             <if test="pageType != null">
                 pageType = #{pageType,jdbcType=VARCHAR},
             </if>
@@ -104,47 +101,8 @@
             <if test="pageKey != null">
                 AND pageKey = #{pageKey,jdbcType=VARCHAR}
             </if>
-            <if test="projectId != null">
-                AND projectId = #{projectId,jdbcType=VARCHAR}
-            </if>
-            <if test="pageType != null">
-                AND pageType = #{pageType,jdbcType=VARCHAR}
-            </if>
             <if test="pageVersion != null">
-                AND pageVersion = #{pageVersion,jdbcType=INTEGER}
-            </if>
-            <if test="createTime != null">
-                AND createTime = #{createTime,jdbcType=TIMESTAMP}
-            </if>
-            <if test="lastUpdateTime != null">
-                AND lastUpdateTime = #{lastUpdateTime,jdbcType=TIMESTAMP}
-            </if>
-            <if test="createOperator != null">
-                AND createOperator = #{createOperator,jdbcType=VARCHAR}
-            </if>
-            <if test="createOperatorId != null">
-                AND createOperatorId = #{createOperatorId,jdbcType=VARCHAR}
-            </if>
-            <if test="doOperator != null">
-                AND doOperator = #{doOperator,jdbcType=VARCHAR}
-            </if>
-            <if test="doOperatorId != null">
-                AND doOperatorId = #{doOperatorId,jdbcType=VARCHAR}
-            </if>
-            <if test="frontOperator != null">
-                AND frontOperator = #{frontOperator,jdbcType=VARCHAR}
-            </if>
-            <if test="frontOperatorId != null">
-                AND frontOperatorId = #{frontOperatorId,jdbcType=VARCHAR}
-            </if>
-            <if test="finishCount != null">
-                AND finishCount = #{finishCount,jdbcType=INTEGER}
-            </if>
-            <if test="readOnly != null">
-                AND readOnly = #{readOnly,jdbcType=BIT}
-            </if>
-            <if test="methodRemark != null">
-                AND methodRemark = #{methodRemark,jdbcType=VARCHAR}
+                <![CDATA[AND pageVersion < #{pageVersion,jdbcType=INTEGER}]]>
             </if>
         </where>
     </update>

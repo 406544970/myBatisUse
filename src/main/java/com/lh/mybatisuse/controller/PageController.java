@@ -74,7 +74,7 @@ public class PageController {
                     index++;
                 }
                 if (findSign) {
-                    if (!pageVersionInParam.getPageVersion().equals(pageModelsUpdate.get(index).getPageVersion())) {
+                    if (pageVersionInParam.getPageVersion() < pageModelsUpdate.get(index).getPageVersion()) {
                         resultList.add(pageModelsUpdate.get(index));
                     }
                 } else {
@@ -127,7 +127,7 @@ public class PageController {
      */
     @ApiOperation(value = "更新页面到远程", notes = "影响条数")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageKey", value = "主键", dataType = "String")
+            @ApiImplicitParam(name = "pageKey", value = "主键", dataType = "String", required = true)
             , @ApiImplicitParam(name = "projectId", value = "项目名称", dataType = "String")
             , @ApiImplicitParam(name = "pageType", value = "页面类型", dataType = "String")
             , @ApiImplicitParam(name = "pageVersion", value = "页面版本", dataType = "int")
@@ -145,20 +145,20 @@ public class PageController {
     })
     @PostMapping("/updatePageAndXml")
     public int updatePageAndXml(@RequestParam(value = "pageKey", required = false) String pageKey
-            , @RequestParam(value = "projectId") String projectId
-            , @RequestParam(value = "pageType") String pageType
-            , @RequestParam(value = "pageVersion") int pageVersion
-            , @RequestParam(value = "createTime") Date createTime
-            , @RequestParam(value = "lastUpdateTime") Date lastUpdateTime
-            , @RequestParam(value = "createOperator") String createOperator
-            , @RequestParam(value = "createOperatorId") String createOperatorId
-            , @RequestParam(value = "doOperator") String doOperator
-            , @RequestParam(value = "doOperatorId") String doOperatorId
-            , @RequestParam(value = "frontOperator") String frontOperator
-            , @RequestParam(value = "frontOperatorId") String frontOperatorId
-            , @RequestParam(value = "finishCount") int finishCount
-            , @RequestParam(value = "readOnly") boolean readOnly
-            , @RequestParam(value = "methodRemark") String methodRemark) {
+            , @RequestParam(value = "projectId", required = false) String projectId
+            , @RequestParam(value = "pageType", required = false) String pageType
+            , @RequestParam(value = "pageVersion", required = false) int pageVersion
+            , @RequestParam(value = "createTime", required = false) Date createTime
+            , @RequestParam(value = "lastUpdateTime", required = false) Date lastUpdateTime
+            , @RequestParam(value = "createOperator", required = false) String createOperator
+            , @RequestParam(value = "createOperatorId", required = false) String createOperatorId
+            , @RequestParam(value = "doOperator", required = false) String doOperator
+            , @RequestParam(value = "doOperatorId", required = false) String doOperatorId
+            , @RequestParam(value = "frontOperator", required = false) String frontOperator
+            , @RequestParam(value = "frontOperatorId", required = false) String frontOperatorId
+            , @RequestParam(value = "finishCount", required = false) int finishCount
+            , @RequestParam(value = "readOnly", required = false) boolean readOnly
+            , @RequestParam(value = "methodRemark", required = false) String methodRemark) {
         pageKey = pageKey == null ? pageKey : pageKey.trim();
         projectId = projectId == null ? projectId : projectId.trim();
         pageType = pageType == null ? pageType : pageType.trim();
