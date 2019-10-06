@@ -130,7 +130,7 @@ public class UploadFileController {
      */
     @ApiOperation(value = "文件上传", notes = "上传文件,指定文件夹(可选),文件名(可选)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "dictionary", value = "带扩展名的文件名", dataType = "String", required = true),
+            @ApiImplicitParam(name = "dictionary", value = "所在文件夹", dataType = "String", required = true),
             @ApiImplicitParam(name = "fileName", value = "带扩展名的文件名", dataType = "String", required = true)
     })
     @PostMapping(value = "/downLoadFile")
