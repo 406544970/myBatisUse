@@ -8,10 +8,10 @@ import io.swagger.annotations.ApiOperation;
 import lh.model.ResultVO;
 import lh.units.ResultStruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -120,6 +120,44 @@ public class UploadFileController {
             else
                 return ResultStruct.error("上传失败！", ResultVO.class);
         }
+    }
+
+    /**
+     * 下载文件
+     *
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "文件上传", notes = "上传文件,指定文件夹(可选),文件名(可选)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "dictionary", value = "带扩展名的文件名", dataType = "String", required = true),
+            @ApiImplicitParam(name = "fileName", value = "带扩展名的文件名", dataType = "String", required = true)
+    })
+    @PostMapping(value = "/downLoadFile")
+    public byte[] downLoadFile(@RequestParam(value = "dictionary") String dictionary
+            , @RequestParam(value = "fileName") String fileName) throws IOException {
+        dictionary = dictionary == null ? null : dictionary.trim();
+        fileName = fileName == null ? null : fileName.trim();
+        fileName += ".xml";
+        String allPathFileName = String.format("%s%s%s%s%s"
+                , getPropertiesClass.getUploadFileFolder()
+                , File.separator
+                , dictionary
+                , File.separator
+                , fileName);
+
+        File file = new File(allPathFileName);
+        if (file.exists()) {
+            byte[] resultArray = new byte[(int) file.length()];
+            FileInputStream fileInputStream = new FileInputStream(allPathFileName);
+            int read = fileInputStream.read(resultArray, 0, resultArray.length);
+            fileInputStream.close();
+            if (read > -1)
+                return resultArray;
+            else
+                return null;
+        } else
+            return null;
     }
 
     private boolean uploadFilePrivate(byte[] fileStreamArray, String dictionary, String fileName) throws IOException {

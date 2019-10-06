@@ -6,12 +6,14 @@ import com.lh.mybatisuse.model.InPutParam.PageVersionInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.PageVersionListInParam;
 import com.lh.mybatisuse.model.PageModel;
 import com.lh.mybatisuse.service.PageService;
+import com.lh.mybatisuse.unit.GetPropertiesClass;
 import io.swagger.annotations.*;
 import lh.model.ResultVO;
 import lh.units.ResultStruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +31,8 @@ import java.util.List;
 public class PageController {
     @Autowired
     PageService pageService;
+    @Autowired
+    GetPropertiesClass getPropertiesClass;
 
     /**
      * 得到需要更新的版本信息，方法ID：SE2019100218372321158B1B17A5A33
@@ -202,14 +206,29 @@ public class PageController {
             @ApiImplicitParam(name = "pageKey", value = "主键", dataType = "String", required = true)
     })
     @PostMapping("/deletePageAndXml")
-    public int deletePageAndXml(@RequestParam(value = "pageKey") String pageKey) {
+    public int deletePageAndXml(@RequestParam(value = "pageKey") String pageKey
+        , @RequestParam(value = "pageType") String pageType) {
         pageKey = pageKey == null ? pageKey : pageKey.trim();
+        pageType = pageType == null ? pageKey : pageType.trim().toLowerCase();
 
+        deleteXmlFile(pageKey + ".xml", pageType);
         PageInsertInParam pageInsertInParam = new PageInsertInParam();
         pageInsertInParam.setPageKey(pageKey);
         int updateCount = pageService.deletePageAndXml(pageInsertInParam);
 
         return updateCount;
+    }
+
+    private void deleteXmlFile(String fileName, String dictionary) {
+        String allPathFileName = String.format("%s%s%s%s%s"
+                , getPropertiesClass.getUploadFileFolder()
+                , File.separator
+                , dictionary
+                , File.separator
+                , fileName);
+        File file = new File(allPathFileName);
+        if (file.exists())
+            file.delete();
     }
 
     /**
