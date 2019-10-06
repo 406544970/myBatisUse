@@ -24,7 +24,12 @@ public class GetPropertiesClass {
     private String springApplicationName;
     @Value("${liangHaoSign}")
     private String liangHaoSign;
+    @Value("${uploadFileFolder}")
+    private String uploadFileFolder;
 
+    public String getUploadFileFolder(){
+        return this.uploadFileFolder;
+    }
     /**
      * 得到端口号
      * @return
