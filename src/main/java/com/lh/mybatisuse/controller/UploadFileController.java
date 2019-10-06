@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lh.model.ResultVO;
 import lh.units.ResultStruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -57,7 +58,8 @@ public class UploadFileController {
             @ApiImplicitParam(name = "fileName", value = "带扩展名的文件名", dataType = "String", required = true)
     })
     @PostMapping(value = "/uploadFileSelect")
-    public ResultVO uploadFileSelect(byte[] fileStreamArray, String fileName) throws IOException {
+    public ResultVO uploadFileSelect(@RequestBody byte[] fileStreamArray
+            , @RequestParam(value = "fileName") String fileName) throws IOException {
         return getUploadFileResultVO(fileStreamArray, "select", fileName);
     }
 
@@ -72,7 +74,8 @@ public class UploadFileController {
             @ApiImplicitParam(name = "fileName", value = "带扩展名的文件名", dataType = "String", required = true)
     })
     @PostMapping(value = "/uploadFileUpdate")
-    public ResultVO uploadFileUpdate(byte[] fileStreamArray, String fileName) throws IOException {
+    public ResultVO uploadFileUpdate(@RequestBody byte[] fileStreamArray
+            , @RequestParam(value = "fileName") String fileName) throws IOException {
         return getUploadFileResultVO(fileStreamArray, "update", fileName);
     }
 
@@ -87,7 +90,8 @@ public class UploadFileController {
             @ApiImplicitParam(name = "fileName", value = "带扩展名的文件名", dataType = "String", required = true)
     })
     @PostMapping(value = "/uploadFileInsert")
-    public ResultVO uploadFileInsert(byte[] fileStreamArray, String fileName) throws IOException {
+    public ResultVO uploadFileInsert(@RequestBody byte[] fileStreamArray
+            , @RequestParam(value = "fileName") String fileName) throws IOException {
         return getUploadFileResultVO(fileStreamArray, "insert", fileName);
     }
 
@@ -102,7 +106,8 @@ public class UploadFileController {
             @ApiImplicitParam(name = "fileName", value = "带扩展名的文件名", dataType = "String", required = true)
     })
     @PostMapping(value = "/uploadFileDelete")
-    public ResultVO uploadFileDelete(byte[] fileStreamArray, String fileName) throws IOException {
+    public ResultVO uploadFileDelete(@RequestBody byte[] fileStreamArray
+            , @RequestParam(value = "fileName") String fileName) throws IOException {
         return getUploadFileResultVO(fileStreamArray, "delete", fileName);
     }
 
