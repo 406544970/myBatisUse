@@ -118,16 +118,16 @@ public class MyBatisUseController {
 
         MyBatisUseModel myBatisUseModel = myBatisUseServiceImpl.useLog(myBatisUseSelectInParam);
         if (myBatisUseModel == null) {
-            return ResultStruct.error("无此用户！", ResultVO.class);
+            return ResultStruct.error("无此用户！", ResultVO.class,null);
         }
         if (myBatisUseModel.getStopSign()) {
-            return ResultStruct.error("此用户已停用！", ResultVO.class);
+            return ResultStruct.error("此用户已停用！", ResultVO.class,null);
         }
         if (!passWord.equals(myBatisUseModel.getPassWord())) {
-            return ResultStruct.error("密码错误！", ResultVO.class);
+            return ResultStruct.error("密码错误！", ResultVO.class,null);
         }
         if (myBatisUseModel.getEndDate().before(new Date())) {
-            return ResultStruct.error("用户账号已超期！", ResultVO.class);
+            return ResultStruct.error("用户账号已超期！", ResultVO.class,null);
         }
 
         MyBatisUseInsertInParam myBatisUseInsertInParam = new MyBatisUseInsertInParam();
@@ -191,7 +191,7 @@ public class MyBatisUseController {
             return ResultStruct.success(myBatisUseModel);
         }
         else
-            return ResultStruct.error("登录失败!",ResultVO.class);
+            return ResultStruct.error("登录失败!",ResultVO.class,null);
     }
 
     private String getDoMain(String myOrigin) {
