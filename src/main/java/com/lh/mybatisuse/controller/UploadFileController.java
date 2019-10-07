@@ -113,12 +113,12 @@ public class UploadFileController {
 
     private ResultVO getUploadFileResultVO(byte[] fileStreamArray, String dictionary, String fileName) throws IOException {
         if (fileStreamArray == null || fileStreamArray.length == 0) {
-            return ResultStruct.error("上传失败，文件体为空！", ResultVO.class);
+            return ResultStruct.error("上传失败，文件体为空！", ResultVO.class, boolean.class);
         } else {
             if (uploadFilePrivate(fileStreamArray, dictionary, fileName))
                 return ResultStruct.success(true);
             else
-                return ResultStruct.error("上传失败！", ResultVO.class);
+                return ResultStruct.error("上传失败！", ResultVO.class, boolean.class);
         }
     }
 

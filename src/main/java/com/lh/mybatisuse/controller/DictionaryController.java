@@ -53,7 +53,7 @@ public class DictionaryController {
         List<DictionaryModel> dictionaryModels = dictionaryService.selectDictionaryList(signName);
         List<String> list = new ArrayList<>();
         if (dictionaryModels != null) {
-            for (DictionaryModel dictionaryModel:
+            for (DictionaryModel dictionaryModel :
                     dictionaryModels) {
                 list.add(dictionaryModel.getValue());
             }
@@ -133,12 +133,12 @@ public class DictionaryController {
         dictionaryInsertInParam.setRemark(remark);
         int repetitionCount = dictionaryService.insertDictionaryBeforeCheck(dictionaryInsertInParam);
         if (repetitionCount > 0)
-            return ResultStruct.error("增加失败，有" + repetitionCount + "条数据已重复！", ResultVO.class);
+            return ResultStruct.error("增加失败，有" + repetitionCount + "条数据已重复！", ResultVO.class, int.class);
         int resultCount = dictionaryService.insertDictionary(dictionaryInsertInParam);
         if (resultCount > 0)
             return ResultStruct.success(resultCount);
         else
-            return ResultStruct.error("增加失败", ResultVO.class);
+            return ResultStruct.error("增加失败", ResultVO.class,int.class);
     }
 
     /**
@@ -193,14 +193,14 @@ public class DictionaryController {
             dictionaryInsertInParam.setSignName(signNameWhere);
             int repetitionCount = dictionaryService.insertDictionaryBeforeCheck(dictionaryInsertInParam);
             if (repetitionCount > 0) {
-                return ResultStruct.error("增加失败，有" + repetitionCount + "条数据已重复！", ResultVO.class);
+                return ResultStruct.error("增加失败，有" + repetitionCount + "条数据已重复！", ResultVO.class,int.class);
             }
         }
         int updateCount = dictionaryService.updateDictionaryByAll(dictionaryUpdateInParam);
         if (updateCount > 0)
             return ResultStruct.success(updateCount);
         else
-            return ResultStruct.error("修改失败", ResultVO.class);
+            return ResultStruct.error("修改失败", ResultVO.class,int.class);
     }
 
     /**
@@ -232,12 +232,13 @@ public class DictionaryController {
         if (updateCount > 0)
             return ResultStruct.success(updateCount);
         else
-            return ResultStruct.error("修改失败", ResultVO.class);
+            return ResultStruct.error("修改失败", ResultVO.class,int.class);
     }
+
     /**
      * 删除，方法ID：SE20190922094746611
      *
-     * @param id 主键
+     * @param id       主键
      * @param signName 标识
      * @return 影响条数
      */
@@ -259,6 +260,7 @@ public class DictionaryController {
 
         return updateCount;
     }
+
     /**
      * 根据标识得到内容，方法ID：SE20190924091144625
      *
