@@ -96,7 +96,7 @@ public class MyBatisUseController {
      */
     @ApiOperation(value = "用户登录", notes = "用户信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "num", value = "账号", dataType = "String"),
+            @ApiImplicitParam(name = "num", value = "账号", dataType = "String", required = true),
             @ApiImplicitParam(name = "passWord", value = "密码", dataType = "String", required = true)
     })
     @PostMapping("/useLogCS")
