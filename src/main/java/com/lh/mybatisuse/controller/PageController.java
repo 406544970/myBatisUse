@@ -79,7 +79,8 @@ public class PageController {
                 }
                 if (findSign) {
                     if (pageVersionInParam.getPageVersion() < pageModelsUpdate.get(index).getPageVersion()) {
-                        resultList.add(pageModelsUpdate.get(index));
+                        if (fileExists(pageVersionInParam.getPageKey(), pageVersionInParam.getPageType()))
+                            resultList.add(pageModelsUpdate.get(index));
                     }
                 } else {
                     PageModel pageModel = new PageModel();
@@ -97,7 +98,11 @@ public class PageController {
 
         List<PageModel> pageModelsInsert = pageService.selectVersionInsertList(pageVersionInsertInParam);
         if (pageModelsInsert != null) {
-            resultList.addAll(pageModelsInsert);
+            for (PageModel pageModel :
+                    pageModelsInsert) {
+                if (fileExists(pageModel.getPageKey(), pageModel.getPageType()))
+                    resultList.add(pageModel);
+            }
         }
 
         if (pageKeys != null)
@@ -107,6 +112,17 @@ public class PageController {
         if (pageModelsUpdate != null)
             pageModelsUpdate.clear();
         return ResultStruct.success(resultList);
+    }
+
+    private boolean fileExists(String pageKey, String pageType) {
+        String allPathFileName = String.format("%s%s%s%s%s.xml"
+                , getPropertiesClass.getUploadFileFolder()
+                , File.separator
+                , pageType
+                , File.separator
+                , pageKey);
+        File file = new File(allPathFileName);
+        return file.exists();
     }
 
     /**
@@ -207,7 +223,7 @@ public class PageController {
     })
     @PostMapping("/deletePageAndXml")
     public int deletePageAndXml(@RequestParam(value = "pageKey") String pageKey
-        , @RequestParam(value = "pageType") String pageType) {
+            , @RequestParam(value = "pageType") String pageType) {
         pageKey = pageKey == null ? pageKey : pageKey.trim();
         pageType = pageType == null ? pageKey : pageType.trim().toLowerCase();
 
