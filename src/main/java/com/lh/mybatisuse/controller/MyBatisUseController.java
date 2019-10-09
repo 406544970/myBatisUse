@@ -208,4 +208,29 @@ public class MyBatisUseController {
         }
         return newOrigin;
     }
+    /**
+     * 修改密码，方法ID：UP2019100909184486632CFE0ACD76A
+     *
+     * @param useId 主键, Where字段
+     * @param passWord 密码
+     * @return 是否成功
+     */
+    @ApiOperation(value = "修改密码", notes = "是否成功")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "useId", value = "主键", dataType = "String", required = true)
+            , @ApiImplicitParam(name = "passWord", value = "密码", dataType = "String", required = true)
+    })
+    @PostMapping("/updatePassWord")
+    public int updatePassWord(@RequestParam(value = "useId") String useId
+            , @RequestParam(value = "passWord") String passWord) {
+        passWord = passWord == null ? passWord : passWord.trim();
+
+        MyBatisUseUpdateInParam myBatisUseUpdateInParam = new MyBatisUseUpdateInParam();
+        myBatisUseUpdateInParam.setIdWhere(useId);
+        myBatisUseUpdateInParam.setPassWord(passWord);
+        int updateCount = myBatisUseServiceImpl.updatePassWord(myBatisUseUpdateInParam);
+
+        return updateCount;
+    }
+
 }
