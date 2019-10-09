@@ -7,7 +7,7 @@
         nickName
         FROM  sys_useInfo
         <where>
-            <![CDATA[AND endDate <= 'now()']]>
+            <![CDATA[AND endDate <= now()]]>
             AND roleId = #{roleId,jdbcType=VARCHAR}
             AND stopSign = '0'
         </where>
@@ -108,4 +108,74 @@
             </if>
         </where>
     </select>
+    <!-- 注释：修改密码 -->
+    <update id="updatePassWord" parameterType="com.lh.mybatisuse.model.InPutParam.MyBatisUseUpdateInParam">
+        UPDATE sys_useInfo
+        <set>
+            <if test="id != null">
+                id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nickName = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="useName != null">
+                useName = #{useName,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null">
+                passWord = #{passWord,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="endDate != null">
+                endDate = #{endDate,jdbcType=DATE},
+            </if>
+            <if test="companyName != null">
+                companyName = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null">
+                roleId = #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="stopSign != null">
+                stopSign = #{stopSign,jdbcType=BIT},
+            </if>
+            <if test="workTime != null">
+                workTime = #{workTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where>
+            <if test="idWhere != null">
+                AND id = #{idWhere,jdbcType=VARCHAR}
+            </if>
+            <if test="nickNameWhere != null">
+                AND nickName = #{nickNameWhere,jdbcType=VARCHAR}
+            </if>
+            <if test="useNameWhere != null">
+                AND useName = #{useNameWhere,jdbcType=VARCHAR}
+            </if>
+            <if test="passWordWhere != null">
+                AND passWord = #{passWordWhere,jdbcType=VARCHAR}
+            </if>
+            <if test="mobileWhere != null">
+                AND mobile = #{mobileWhere,jdbcType=VARCHAR}
+            </if>
+            <if test="emailWhere != null">
+                AND email = #{emailWhere,jdbcType=VARCHAR}
+            </if>
+            AND endDate > now()
+            <if test="companyNameWhere != null">
+                AND companyName = #{companyNameWhere,jdbcType=VARCHAR}
+            </if>
+            <if test="roleIdWhere != null">
+                AND roleId = #{roleIdWhere,jdbcType=VARCHAR}
+            </if>
+            AND stopSign = '0'
+            <if test="workTimeWhere != null">
+                AND workTime = #{workTimeWhere,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </update>
 </mapper>

@@ -2,6 +2,7 @@ package com.lh.mybatisuse.controller;
 
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseSelectInParam;
+import com.lh.mybatisuse.model.InPutParam.MyBatisUseUpdateInParam;
 import com.lh.mybatisuse.model.MyBatisUseModel;
 import com.lh.mybatisuse.service.Impl.MyBatisUseServiceImpl;
 import io.swagger.annotations.Api;

@@ -2,6 +2,7 @@ package com.lh.mybatisuse.dao;
 
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseSelectInParam;
+import com.lh.mybatisuse.model.InPutParam.MyBatisUseUpdateInParam;
 import com.lh.mybatisuse.model.MyBatisUseModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -54,5 +55,12 @@ public interface MyBatisUseMapper {
      * @return 影响条数
      */
     int updateAccessToken(MyBatisUseInsertInParam myBatisUseInsertInParam);
+    /**
+     * 修改密码
+     *
+     * @param myBatisUseUpdateInParam com.lh.mybatisuse.model.InPutParam.MyBatisUseUpdateInParam
+     * @return 是否成功
+     */
+    int updatePassWord(MyBatisUseUpdateInParam myBatisUseUpdateInParam);
 
 }

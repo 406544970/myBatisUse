@@ -3,6 +3,7 @@ package com.lh.mybatisuse.service.Impl;
 import com.lh.mybatisuse.dao.MyBatisUseMapper;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseSelectInParam;
+import com.lh.mybatisuse.model.InPutParam.MyBatisUseUpdateInParam;
 import com.lh.mybatisuse.model.MyBatisUseModel;
 import com.lh.mybatisuse.service.MyBatisUseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,17 @@ public class MyBatisUseServiceImpl implements MyBatisUseService {
     @Override
     public int updateAccessToken (MyBatisUseInsertInParam myBatisUseInsertInParam) {
         return myBatisUseMapper.updateAccessToken(myBatisUseInsertInParam);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param myBatisUseUpdateInParam com.lh.mybatisuse.model.InPutParam.MyBatisUseUpdateInParam
+     * @return 是否成功
+     */
+    @Override
+    public int updatePassWord (MyBatisUseUpdateInParam myBatisUseUpdateInParam) {
+        return myBatisUseMapper.updatePassWord(myBatisUseUpdateInParam);
     }
 
 }

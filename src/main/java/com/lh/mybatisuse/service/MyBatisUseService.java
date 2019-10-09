@@ -2,6 +2,7 @@ package com.lh.mybatisuse.service;
 
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseSelectInParam;
+import com.lh.mybatisuse.model.InPutParam.MyBatisUseUpdateInParam;
 import com.lh.mybatisuse.model.MyBatisUseModel;
 
 import java.util.List;
@@ -51,5 +52,12 @@ public interface MyBatisUseService {
      * @return 影响条数
      */
     int updateAccessToken(MyBatisUseInsertInParam myBatisUseInsertInParam);
+    /**
+     * 修改密码
+     *
+     * @param myBatisUseUpdateInParam com.lh.mybatisuse.model.InPutParam.MyBatisUseUpdateInParam
+     * @return 是否成功
+     */
+    int updatePassWord(MyBatisUseUpdateInParam myBatisUseUpdateInParam);
 
 }
