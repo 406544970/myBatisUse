@@ -7,11 +7,11 @@
         nickName
         FROM  sys_useInfo
         <where>
-            <![CDATA[AND endDate <= now()]]>
+            AND endDate > now()
             AND roleId = #{roleId,jdbcType=VARCHAR}
             AND stopSign = '0'
         </where>
-        ORDER BY nickName
+        ORDER BY nickNameselectUseFrontNickNameList
     </select>
 
 
@@ -22,7 +22,7 @@
         FROM  sys_useInfo
         <where>
             AND nickName = #{nickName,jdbcType=VARCHAR}
-            <![CDATA[AND endDate <= 'now()']]>
+            AND endDate > now()
             AND stopSign = '0'
         </where>
     </select>
