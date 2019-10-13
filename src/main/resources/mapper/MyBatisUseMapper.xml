@@ -11,7 +11,7 @@
             AND roleId = #{roleId,jdbcType=VARCHAR}
             AND stopSign = '0'
         </where>
-        ORDER BY nickNameselectUseFrontNickNameList
+        ORDER BY nickName
     </select>
 
 
