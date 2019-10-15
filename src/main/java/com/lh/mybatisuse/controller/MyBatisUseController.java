@@ -135,7 +135,7 @@ public class MyBatisUseController {
         myBatisUseInsertInParam.setUseId(myBatisUseModel.getId());
         myBatisUseInsertInParam.setUseType(myBatisUseModel.getUseType());
         myBatisUseInsertInParam.setClientType(bsSign ? "BS" : "CS");
-        String accessToken = UUID.randomUUID().toString();
+        String accessToken = UUID.randomUUID().toString().replace("-","");
         myBatisUseInsertInParam.setAccessToken(accessToken);
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Shanghai");//获取北京时间
         Calendar c = Calendar.getInstance(timeZone);
