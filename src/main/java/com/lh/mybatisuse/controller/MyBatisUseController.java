@@ -87,6 +87,23 @@ public class MyBatisUseController {
         return myBatisUseServiceImpl.selectUseId(nickName);
     }
 
+    /**
+     * 用户登录BS，方法ID：SE20190929112838909B3-04-31-E6-9C-3B
+     *
+     * @param num      表sys_useInfo,字段名useName:账号
+     * @param passWord 表sys_useInfo,字段名passWord:密码
+     * @return 用户信息
+     */
+    @ApiOperation(value = "用户登录", notes = "用户信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "num", value = "账号", dataType = "String", required = true),
+            @ApiImplicitParam(name = "passWord", value = "密码", dataType = "String", required = true)
+    })
+    @PostMapping("/useLogBS")
+    public ResultVO useLogBS(@RequestParam(value = "num") String num
+            , @RequestParam(value = "passWord") String passWord) {
+        return privateUseLog(num, passWord, true);
+    }
 
     /**
      * 用户登录CS，方法ID：SE20190929112838909B3-04-31-E6-9C-3B
