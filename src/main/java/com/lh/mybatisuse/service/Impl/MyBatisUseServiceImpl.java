@@ -26,7 +26,7 @@ public class MyBatisUseServiceImpl implements MyBatisUseService {
     /**
      * 得到用户ID
      *
-     * @param roldId 得到用户ID
+     * @param roleId 得到用户ID
      * @return 用户信息对象
      */
     @Override

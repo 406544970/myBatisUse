@@ -1,6 +1,7 @@
 package com.lh.mybatisuse.service.Impl;
 
 import com.lh.mybatisuse.dao.DictionaryMapper;
+import com.lh.mybatisuse.model.DictionaryIniModel;
 import com.lh.mybatisuse.model.DictionaryModel;
 import com.lh.mybatisuse.model.InPutParam.DictionaryDeleteInParam;
 import com.lh.mybatisuse.model.InPutParam.DictionaryInsertInParam;
@@ -22,6 +23,16 @@ import java.util.List;
 public class DictionaryServiceImpl implements DictionaryService {
     @Autowired
     DictionaryMapper dictionaryMapper;
+
+    /**
+     * 下载所有字典
+     *
+     * @return 所有字典
+     */
+    @Override
+    public List<DictionaryIniModel> downIniDictionary() {
+        return dictionaryMapper.downIniDictionary();
+    }
 
     /**
      * 根据标识得到内容
@@ -52,7 +63,7 @@ public class DictionaryServiceImpl implements DictionaryService {
      * @return 影响条数
      */
     @Override
-    public int insertDictionary (DictionaryInsertInParam dictionaryInsertInParam) {
+    public int insertDictionary(DictionaryInsertInParam dictionaryInsertInParam) {
         return dictionaryMapper.insertDictionary(dictionaryInsertInParam);
     }
 
@@ -74,7 +85,7 @@ public class DictionaryServiceImpl implements DictionaryService {
      * @return 影响条数
      */
     @Override
-    public int updateDictionaryByAll (DictionaryUpdateInParam dictionaryUpdateInParam) {
+    public int updateDictionaryByAll(DictionaryUpdateInParam dictionaryUpdateInParam) {
         return dictionaryMapper.updateDictionaryByAll(dictionaryUpdateInParam);
     }
 
@@ -85,7 +96,7 @@ public class DictionaryServiceImpl implements DictionaryService {
      * @return 影响条数
      */
     @Override
-    public int deleteDictionaryBySignAndId (DictionaryDeleteInParam dictionaryDeleteInParam) {
+    public int deleteDictionaryBySignAndId(DictionaryDeleteInParam dictionaryDeleteInParam) {
         return dictionaryMapper.deleteDictionaryBySignAndId(dictionaryDeleteInParam);
     }
 

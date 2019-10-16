@@ -1,5 +1,6 @@
 package com.lh.mybatisuse.dao;
 
+import com.lh.mybatisuse.model.DictionaryIniModel;
 import com.lh.mybatisuse.model.DictionaryModel;
 import com.lh.mybatisuse.model.InPutParam.DictionaryDeleteInParam;
 import com.lh.mybatisuse.model.InPutParam.DictionaryInsertInParam;
@@ -17,6 +18,13 @@ import java.util.List;
  */
 @Mapper
 public interface DictionaryMapper {
+    /**
+     * 下载所有字典
+     *
+     * @return 所有字典
+     */
+    List<DictionaryIniModel> downIniDictionary();
+
     /**
      * 返回字典列表
      *

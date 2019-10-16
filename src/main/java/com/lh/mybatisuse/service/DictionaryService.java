@@ -1,5 +1,6 @@
 package com.lh.mybatisuse.service;
 
+import com.lh.mybatisuse.model.DictionaryIniModel;
 import com.lh.mybatisuse.model.DictionaryModel;
 import com.lh.mybatisuse.model.InPutParam.DictionaryDeleteInParam;
 import com.lh.mybatisuse.model.InPutParam.DictionaryInsertInParam;
@@ -14,6 +15,13 @@ import java.util.List;
  * @editLog
  */
 public interface DictionaryService {
+    /**
+     * 下载所有字典
+     *
+     * @return 所有字典
+     */
+    List<DictionaryIniModel> downIniDictionary();
+
     /**
      * 根据标识得到内容
      *

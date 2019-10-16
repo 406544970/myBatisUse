@@ -37,6 +37,17 @@ import java.util.List;
 public class DictionaryController {
     @Autowired
     DictionaryService dictionaryService;
+    /**
+     * 下载所有字典，方法ID：SE201910161906126742E4B9D0FDC74
+     *
+     * @return 所有字典
+     */
+    @ApiOperation(value = "下载所有字典", notes = "所有字典")
+    @PostMapping("/downIniDictionary")
+    public ResultVO downIniDictionary() {
+        return ResultStruct.success(dictionaryService.downIniDictionary());
+    }
+
 
     /**
      * 返回字典列表，方法ID：SE20190921232129273

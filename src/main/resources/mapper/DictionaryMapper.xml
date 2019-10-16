@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lh.mybatisuse.dao.DictionaryMapper">
+    <!-- 注释：下载所有字典 -->
+    <select id="downIniDictionary" resultType="com.lh.mybatisuse.model.DictionaryIniModel" >
+        SELECT
+            id
+            ,signName
+            ,contentName
+            ,defaultSelect
+            ,sortNo
+            ,stopSign
+            ,remark
+        FROM  inf_dictionary
+    </select>
+
     <!-- 注释：返回字典列表 -->
     <select id="selectDictionaryList" resultType="com.lh.mybatisuse.model.DictionaryModel" parameterType="java.lang.String">
         SELECT

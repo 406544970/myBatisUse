@@ -6,7 +6,14 @@
         SELECT
         id
         ,nickName
+        ,useName
+        ,mobile
+        ,email
+        ,endDate
+        ,companyName
+        ,roleId
         ,stopSign
+        ,workTime
         FROM  sys_useInfo
         <where>
             AND companyName = #{companyName,jdbcType=VARCHAR}
