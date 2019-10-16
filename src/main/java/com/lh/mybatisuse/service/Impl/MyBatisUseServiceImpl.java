@@ -4,6 +4,7 @@ import com.lh.mybatisuse.dao.MyBatisUseMapper;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseInsertInParam;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseSelectInParam;
 import com.lh.mybatisuse.model.InPutParam.MyBatisUseUpdateInParam;
+import com.lh.mybatisuse.model.MyBatisAllUseModel;
 import com.lh.mybatisuse.model.MyBatisUseModel;
 import com.lh.mybatisuse.service.MyBatisUseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,16 @@ public class MyBatisUseServiceImpl implements MyBatisUseService {
     @Override
     public int updatePassWord (MyBatisUseUpdateInParam myBatisUseUpdateInParam) {
         return myBatisUseMapper.updatePassWord(myBatisUseUpdateInParam);
+    }
+    /**
+     * 下载该公司所有用户
+     *
+     * @param companyName 所在公司名称
+     * @return 该公司所有用户列表
+     */
+    @Override
+    public List<MyBatisAllUseModel> downAllUseByCompany(String companyName) {
+        return myBatisUseMapper.downAllUseByCompany(companyName);
     }
 
 }

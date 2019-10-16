@@ -34,6 +34,23 @@ import java.util.*;
 public class MyBatisUseController {
     @Autowired
     MyBatisUseServiceImpl myBatisUseServiceImpl;
+    /**
+     * 下载该公司所有用户，方法ID：SE20191016105539222638FC00D5754
+     *
+     * @param companyName 表sys_useInfo,字段名companyName:所在公司名称
+     * @return 该公司所有用户列表
+     */
+    @ApiOperation(value = "下载该公司所有用户", notes = "该公司所有用户列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "companyName", value = "所在公司名称", dataType = "String", required = true)
+    })
+    @PostMapping("/downAllUseByCompany")
+    public ResultVO downAllUseByCompany(@RequestParam(value = "companyName") String companyName) {
+        companyName = companyName == null ? companyName : companyName.trim();
+        return ResultStruct.success(myBatisUseServiceImpl.downAllUseByCompany(companyName));
+    }
+
+
 
     /**
      * 得到创造者用户NickNameList，方法ID：SE20190928154227197
