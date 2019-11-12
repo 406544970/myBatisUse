@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.lh.myBatisUse</groupId>
-    <artifactId>lh</artifactId>
+    <artifactId>lh-MyBatis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>lh</name>
     <description>This is java program
